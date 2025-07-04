@@ -20,12 +20,17 @@ factorial(0, s(0)).
 factorial(s(X), F) :- factorial(X, FP), times(FP, s(X), F).
 
 
+min(X, Y, X) :- lte(X, Y).
+min(X, Y, Y) :- lte(Y, X).
+
+lt(0, s(X)) :- natural_number(X).
+lt(s(X), s(Y)) :- lt(X, Y).
+
+gt(s(X), 0) :- natural_number(X).
+gt(s(X), s(Y)) :- gt(X, Y).
+
+mod(X, Y, Z) :- natural_number(Q), lt(Z, Y), times(Y, Q, QY), plus(Z, QY, X).
 
 
-
-
-
-
-
-
-
+rmod(X, Y, X) :- lt(X, Y).
+rmod(X, Y, Z) :- natural_number(X1), plus(X1, Y, X), rmod(X1, Y, Z).
