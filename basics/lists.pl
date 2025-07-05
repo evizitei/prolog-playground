@@ -8,3 +8,8 @@ prefix(Xs, Ys) :- append(Xs, _, Ys).
 suffix(Xs, Ys) :- append(_, Xs, Ys).
 member(X, Ys) :- append(_, [X|_], Ys).
 sublist(Xs, Ys) :- append(_, Zs, Ys), append(Xs, _, Zs).
+adjacent(X, Y, Zs) :- sublist([X, Y], Zs).
+last(X, Xs) :- append(_, [X], Xs).
+
+reverse([], []).
+reverse([X|Xs], Zs) :- reverse(Xs, Ys), append(Ys, [X], Zs).
