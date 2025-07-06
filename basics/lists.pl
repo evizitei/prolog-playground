@@ -13,3 +13,7 @@ last(X, Xs) :- append(_, [X], Xs).
 
 reverse([], []).
 reverse([X|Xs], Zs) :- reverse(Xs, Ys), append(Ys, [X], Zs).
+
+rev([], Xs, Xs).
+rev([X|Xs], Acc, Ys) :- rev(Xs, [X|Acc], Ys).
+rev(Xs, Ys) :- rev(Xs, [], Ys).
