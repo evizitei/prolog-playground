@@ -17,3 +17,12 @@ reverse([X|Xs], Zs) :- reverse(Xs, Ys), append(Ys, [X], Zs).
 rev([], Xs, Xs).
 rev([X|Xs], Acc, Ys) :- rev(Xs, [X|Acc], Ys).
 rev(Xs, Ys) :- rev(Xs, [], Ys).
+
+len([], 0).
+len([_|Xs], N) :- len(Xs, M), N is M + 1.
+
+rec_adjacent(X, Y, [X, Y | _]).
+rec_adjacent(X, Y, [_ | Zs]) :- rec_adjacent(X, Y, Zs).
+
+rec_last(X, [X]).
+rec_last(X, [_|Xs]) :- rec_last(X, Xs).
