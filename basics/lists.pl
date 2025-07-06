@@ -26,3 +26,6 @@ rec_adjacent(X, Y, [_ | Zs]) :- rec_adjacent(X, Y, Zs).
 
 rec_last(X, [X]).
 rec_last(X, [_|Xs]) :- rec_last(X, Xs).
+
+double([], []).
+double([X | Xs], [X, X | Ys]) :- double(Xs, Ys).
