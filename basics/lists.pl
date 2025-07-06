@@ -29,3 +29,11 @@ rec_last(X, [_|Xs]) :- rec_last(X, Xs).
 
 double([], []).
 double([X | Xs], [X, X | Ys]) :- double(Xs, Ys).
+
+delete([X | Xs], X, Ys) :- delete(Xs, X, Ys).
+delete([Z | Xs], X, [Z | Ys]) :- X \= Z, delete(Xs, X, Ys).
+delete([], _, []).
+
+select([], _, []).
+select([X | Xs], X, Xs).
+select([X | Xs], Z, [X | Zs]) :- X \= Z, select(Xs, Z, Zs).
