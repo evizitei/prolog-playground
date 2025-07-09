@@ -18,3 +18,8 @@ max(tree(X, L, R), MaxR) :- ordered_tree(tree(X, L, R)), max(R, MaxR).
 
 min(tree(X, void, R), X) :- ordered_tree(tree(X, void, R)).
 min(tree(X, L, R), MinL) :- ordered_tree(tree(X, L, R)), min(L, MinL).
+
+insert(X, void, tree(X, void, void)).
+insert(X, tree(X, L, R), tree(X, L, R)).
+insert(X, tree(Y, L, R), tree(Y, L, R1)) :- X > Y, insert(X, R, R1).
+insert(X, tree(Y, L, R), tree(Y, L1, R)) :- X < Y, insert(X, L, L1).
