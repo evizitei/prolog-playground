@@ -20,3 +20,9 @@ union(bag(X, N, B1), bag(X, M, B2), bag(X, A, B3)) :- A is N + M, union(B1, B2, 
 union(bag(X, XN, B1), bag(Y, YN, B2), bag(X, XN, B3)) :- (\+ member(X, B2)), union(B1, bag(Y, YN, B2), B3).
 union(bag(X, XN, B1), bag(Y, YN, B2), bag(X, SUM, B3)) :- member(X, B2), 
   get(X, B2, Xalt), SUM is XN + Xalt, remove(X, B2, B2clean), union(B1, bag(Y, YN, B2clean), B3).
+
+intersection(_, void, void).
+intersection(void, _, void).
+intersection(bag(X, _, B1), B2, B3) :-  (\+ member(X, B2)), intersection(B1, B2, B3).
+intersection(bag(X, N, B1), B2, bag(X, Xsum, B3)) :- member(X, B2), get(X, B2, X2), 
+  Xsum is N + X2, intersection(B1, B2, B3).
