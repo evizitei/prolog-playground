@@ -4,6 +4,14 @@
 
 bool_atom(true).
 bool_atom(false).
+% variables
+bool_atom(a).
+bool_atom(b).
+bool_atom(c).
+bool_atom(d).
+bool_atom(x).
+bool_atom(y).
+bool_atom(z).
 
 disjunct_element(X) :- bool_atom(X).
 disjunct_element(~X) :- bool_atom(X).
@@ -36,7 +44,14 @@ negation_inwards(~(X | Y), (X1 ^ Y1)) :- bool(X), bool(Y),
 negation_inwards(~(~X), Y) :- bool(X), negation_inwards(X, Y).
 
 
-
+to_cnf(X, X) :- cnf(X).
+to_cnf((X | Y), X | Y) :- disjunct_element(X), disjunct_element(Y).
+to_cnf(X | Y, X | Y) :- disjunct_element(X), disjunct_element(Y).
+to_cnf(~X, Y) :- negation_inwards(~X, YN), to_cnf(YN, Y).
+to_cnf(X1 | (X2 ^ X3), Y1 ^ Y2) :- 
+  to_cnf((X1 | X2), Y1), to_cnf((X1 | X3), Y2).
+to_cnf(X ^ Y, X1 ^ Y1) :- 
+  to_cnf(X, X1), to_cnf(Y, Y1).
 
 
 
