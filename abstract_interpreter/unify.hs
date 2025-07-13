@@ -137,6 +137,52 @@ example5 = unify
         ])
     ])
 
+example6 :: UnifyResult
+example6 = unify
+    (Predicate "append" 3 [
+        (Predicate "cons" 2 [
+            (Atom "b"),
+            (Predicate "void" 0 [])
+        ]),
+        (Predicate "cons" 2 [
+            (Atom "c"),
+            (Predicate "cons" 2 [
+                (Atom "d"),
+                (Predicate "void" 0 [])
+            ])
+        ]),
+        (Var "L")
+    ])
+    (Predicate "append" 3 [
+        (Predicate "cons" 2 [
+            (Var "X"),
+            (Var "Xs")
+        ]),
+        (Var "Ys"),
+        (Predicate "cons" 2 [
+            (Var "X"),
+            (Var "Zs")
+        ])
+    ])
+
+example7 :: UnifyResult
+example7 = unify
+    (Predicate "hanoi" 5 [
+        (Predicate "s" 1 [(Var "N")]),
+        (Var "A"),
+        (Var "B"),
+        (Var "C"),
+        (Var "Ms")
+    ])
+    (Predicate "hanoi" 5 [
+        (Predicate "s" 1 [(Predicate "s" 1 [(Atom "0")])]),
+        (Atom "a"),
+        (Atom "b"),
+        (Atom "c"),
+        (Var "Xs")
+    ])
+
+
 main :: IO ()
 main = do
     putStrLn "Example 1:"
@@ -149,3 +195,7 @@ main = do
     print example4
     putStrLn "\nExample 5:"
     print example5
+    putStrLn "\nExample 6:"
+    print example6
+    putStrLn "\nExample 7:"
+    print example7
