@@ -106,6 +106,37 @@ example4 = unify
 -- Should return: Success (fromList [("X", Var "Y"), ("Y", Atom "a")])
 -- Note: Could be further resolved to [("X", Atom "a"), ("Y", Atom "a")]
 
+example5 :: UnifyResult
+example5 = unify
+    (Predicate "append" 3 [
+        (Predicate "cons" 2 [
+            (Atom "a"),
+            (Predicate "cons" 2 [
+                (Atom "b"),
+                (Predicate "void" 0 [])
+            ])]
+            ),
+        (Predicate "cons" 2 [
+            (Atom "c"),
+            (Predicate "cons" 2 [
+                (Atom "d"),
+                (Predicate "void" 0 [])
+            ])]
+            ),
+        (Var "Ls")
+    ])
+    (Predicate "append" 3 [
+        (Predicate "cons" 2 [
+            (Var "X"),
+            (Var "Xs")
+        ]),
+        (Var "Ys"),
+        (Predicate "cons" 2 [
+            (Var "X"),
+            (Var "Zs")
+        ])
+    ])
+
 main :: IO ()
 main = do
     putStrLn "Example 1:"
@@ -116,3 +147,5 @@ main = do
     print example3
     putStrLn "\nExample 4:"
     print example4
+    putStrLn "\nExample 5:"
+    print example5
