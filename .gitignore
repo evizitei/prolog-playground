@@ -1,0 +1,42 @@
+# Haskell build artifacts
+*.hi
+*.o
+*.dyn_hi
+*.dyn_o
+*.hspp
+*.hie
+
+# Compiled executables
+*.exe
+unify
+lp
+
+# Cabal build directories
+dist/
+dist-newstyle/
+cabal-dev/
+
+# Stack build directories
+.stack-work/
+
+# GHCI history
+.ghci_history
+
+# Haskell Language Server
+.hie/
+.hls/
+
+# Profiling files
+*.prof
+*.aux
+*.hp
+*.eventlog
+
+# Other build artifacts
+*.chi
+*.chs.h
+.cabal-sandbox/
+cabal.sandbox.config
+cabal.project.local
+.HTF/
+.ghc.environment.*
