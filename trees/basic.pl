@@ -17,3 +17,9 @@ substree(X, Y, tree(Z, L1, R1),
                tree(Z, L2, R2)) :- X \= Z, 
                                    substree(X, Y, L1, L2),
                                    substree(X, Y, R1, R2).
+
+tree_size(void, 0).
+tree_size(tree(_, L, R), Size) :- 
+    tree_size(L, LeftSize),
+    tree_size(R, RightSize),
+    Size is LeftSize + RightSize + 1.
