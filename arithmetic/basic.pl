@@ -18,3 +18,6 @@ gcd(I, J, Gcd) :- J > 0, J1 is I mod J, gcd(J, J1, Gcd).
 
 factorial(0, 1).
 factorial(N, F) :- N > 0, N1 is N - 1, factorial(N1, F1), F is N * F1.
+
+triangle(0, 0).
+triangle(N, V) :- N > 0, N1 is N - 1, triangle(N1, V1), V is V1 + N.
