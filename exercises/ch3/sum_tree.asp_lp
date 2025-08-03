@@ -1,0 +1,18 @@
+% Tree structure represented as individual facts
+% node(ID, Value, LeftChildID, RightChild(D))
+node(a, 1, b, c).
+node(b, 2, void, void).
+node(c, 3, void, void).
+
+% Base case: void nodes have sum 0
+sum_tree(void, 0).
+
+% Recursive case: sum of a tree is value + sum of left subtree + sum of right subtree
+sum_tree(N, SM) :- 
+    node(N, X, L, R),
+    sum_tree(L, Sl), 
+    sum_tree(R, Sr), 
+    SM = X + Sl + Sr.
+
+% Show the sum_tree predicate
+#show sum_tree/2.
