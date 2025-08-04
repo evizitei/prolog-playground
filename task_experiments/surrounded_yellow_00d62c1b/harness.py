@@ -113,7 +113,8 @@ def main():
     with tempfile.NamedTemporaryFile(mode='w', suffix='.pl', delete=False) as f:
         f.write(prolog_facts)
         f.write('\n\n')
-        f.write(':- include(task).\n')
+        #f.write(':- include(task).\n')
+        f.write(':- include(task_memo).\n')
         temp_file = f.name
     
     try:
