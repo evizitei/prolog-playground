@@ -1,3 +1,12 @@
+
+% raw cells
+input_cell(0,0,black). input_cell(1,0,black). input_cell(2,0,black). input_cell(3,0,black). input_cell(4,0,black). input_cell(5,0,black).
+input_cell(0,1,black). input_cell(1,1,black). input_cell(2,1,green). input_cell(3,1,black). input_cell(4,1,black). input_cell(5,1,black).
+input_cell(0,2,black). input_cell(1,2,green). input_cell(2,2,black). input_cell(3,2,green). input_cell(4,2,black). input_cell(5,2,black).
+input_cell(0,3,black). input_cell(1,3,black). input_cell(2,3,green). input_cell(3,3,black). input_cell(4,3,green). input_cell(5,3,black).
+input_cell(0,4,black). input_cell(1,4,black). input_cell(2,4,black). input_cell(3,4,green). input_cell(4,4,black). input_cell(5,4,black).
+input_cell(0,5,black). input_cell(1,5,black). input_cell(2,5,black). input_cell(3,5,black). input_cell(4,5,black). input_cell(5,5,black).
+
 % Find maximum row and column values from input cells
 max_row(MaxRow) :-
     findall(Y, input_cell(_, Y, _), Rows),
