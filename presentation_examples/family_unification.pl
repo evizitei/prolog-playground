@@ -21,4 +21,5 @@ parent(bob, pat).
 % Rules
 father(X, Y) :- parent(X, Y), male(X).
 grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+grandfather(tom, ann).
 grandfather(X, Z) :- grandparent(X, Z), male(X).
