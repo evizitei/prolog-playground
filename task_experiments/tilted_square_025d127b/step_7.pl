@@ -124,5 +124,6 @@ out_cell(XCell, Y, Color) :-
 out_cell(XCell, YCell, Color) :-
   output_bottom_u(X, Y, Color, Width),
   YCell is Y + 1,
-  between(0, Width - 1, Index),
+  MaxX is Width - 1,
+  between(0, MaxX, Index),
   XCell is X + Index.
