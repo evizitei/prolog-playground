@@ -1,4 +1,3 @@
-
 % Facts
 
 male(tom).
