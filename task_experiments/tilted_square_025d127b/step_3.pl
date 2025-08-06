@@ -43,13 +43,14 @@ output_skewed_rect(Xnew, Y, C, W, H) :-
 % we can break the output down into a similar structure to the input.
 output_hline(X, Y, C, W) :- output_skewed_rect(X, Y, C, W, _).
 
-output_bottom_u(X, YBottom, C, W) :-
+output_bottom_u(XBottom, YBottom, C, W) :-
   output_skewed_rect(X, Y, C, W, H),
-  YBottom is (Y + H) - 2.
+  YBottom is (Y + H) - 2,
+  XBottom is (X + H) - 3.
 
 output_border_slices(XSlice, YSlice, Color, WSlice, Count) :-
   output_skewed_rect(X, Y, Color, W, H),
-  XSlice is (X + H) - 3,
+  XSlice is X,
   Count is H - 3,
   YSlice is Y + 1,
   WSlice is W + 1.

@@ -75,9 +75,21 @@ output_bottom_u(XBottom, YBottom, C, W) :-
   YBottom is (Y + H) - 2,
   XBottom is (X + H) - 3.
 
+% border slices can be broken down to individual rows
 output_border_slices(XSlice, YSlice, Color, WSlice, Count) :-
   output_skewed_rect(X, Y, Color, W, H),
   XSlice is X,
   Count is H - 3,
   YSlice is Y + 1,
   WSlice is W + 1.
+
+% Generate individual out_two_point_row instances based on Count
+% its worth tracing this part.
+out_two_point_row(XRow, YRow, Color, Width) :-
+  output_border_slices(XSlice, YSlice, Color, Width, Count),
+  Count > 0,
+  MaxVal is Count - 1,
+  between(0, MaxVal, Index),
+  XRow is XSlice + Index,
+  YRow is YSlice + Index.
+

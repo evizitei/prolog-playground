@@ -1,27 +1,38 @@
-% every tilted rectangle is untilted by a single step, anchored to its bottom right
+% We could build lines and two point rows from raw cells.
 % facts from example 1
-% input_skewed_rect(X (top left), Y (top left), 
-%                   color, width, height).
 
-% an input skewed rectangle is formed by the following:
-% 1. a horizontal line of some color/length/position
-%   (X, Y, Color, Length)
-% 2. a bunch of connecting cells down the next few rows
-%    (XFirst, YFirst, Color, BorderRowWidth, BorderRowCount)
-% 3. a final horizontal line of the same color/length.
-%   (X, Y, Color, Length)
-% so here are the new facts:
-input_hline(1, 1, pink, 3).
-input_hline(4, 5, pink, 3).
+input_cell(1,1, pink). input_cell(2,1, pink). input_cell(3,1, pink).
+input_cell(1,2, pink). input_cell(4,2, pink).
+input_cell(2, 3, pink). input_cell(5, 3, pink).
+input_cell(3,4,pink). input_cell(6,4,pink).
+input_cell(4,5,pink). input_cell(5,5,pink). input_cell(6,5,pink).
 
-input_hline(2, 7, red, 3).
-input_hline(3, 9, red, 3).
+input_cell(2,7,red). input_cell(3,7,red). input_cell(4,7,red).
+input_cell(2,8,red). input_cell(5,8,red).
+input_cell(3,9,red). input_cell(4,9,red). input_cell(5,9,red).
 
-two_point_row(1, 2, pink, 4).
-two_point_row(2, 3, pink, 4).
-two_point_row(3, 4, pink, 4).
+% lines are colored cells next to each other horizontally (in X)
+input_hline(X, Y, Color, Width) :-
+  input_cell(X, Y, Color),
+  max_consecutive_cells(X, Y, Color, 1, Width),
+  Width > 1.
 
-two_point_row(2, 8, red, 4).
+% same accumulate and cut procedure as for consecutive slices.
+max_consecutive_cells(X, Y, Color, CurrentCount, CurrentCount) :-
+  NextX is X + CurrentCount,
+  \+ input_cell(NextX, Y, Color), !.
+max_consecutive_cells(X, Y, Color, CurrentCount, FinalCount) :-
+  NextX is X + CurrentCount,
+  input_cell(NextX, Y, Color),
+  NextCount is CurrentCount + 1,
+  max_consecutive_cells(X, Y, Color, NextCount, FinalCount).
+
+two_point_row(X, Y, Color, Width) :-
+  input_cell(X, Y, Color),
+  input_cell(OtherX, Y, Color),
+  OtherX > X,
+  Width is (OtherX - X) + 1,
+  Width > 2.
 
 % connected border slices are several contiguous rows of exactly
 % two spaced cells of a fixed spacing, each row offset in the x direction
@@ -75,9 +86,21 @@ output_bottom_u(XBottom, YBottom, C, W) :-
   YBottom is (Y + H) - 2,
   XBottom is (X + H) - 3.
 
+% border slices can be broken down to individual rows
 output_border_slices(XSlice, YSlice, Color, WSlice, Count) :-
   output_skewed_rect(X, Y, Color, W, H),
   XSlice is X,
   Count is H - 3,
   YSlice is Y + 1,
   WSlice is W + 1.
+
+% Generate individual out_two_point_row instances based on Count
+% its worth tracing this part.
+out_two_point_row(XRow, YRow, Color, Width) :-
+  output_border_slices(XSlice, YSlice, Color, Width, Count),
+  Count > 0,
+  MaxVal is Count - 1,
+  between(0, MaxVal, Index),
+  XRow is XSlice + Index,
+  YRow is YSlice + Index.
+
