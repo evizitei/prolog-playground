@@ -7,7 +7,7 @@
     the children are 8 Cardinals Fans (numbered 1..8) and
 	 8 Royals Fans (numbered 9..16).
 
-     1,3,5,8 think royals fans are ucky
+     1,3,5,8 think royals fans are yucky
 	 9,10,11,14 think Cardinals fans are gross
 
 	 these pairs are enemies
